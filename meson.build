@@ -102,6 +102,7 @@ sources = [
 	'background-image.c',
 	'cairo.c',
 	'log.c',
+    'picture_cache.c',
 	'main.c',
 	'pool-buffer.c',
 ]

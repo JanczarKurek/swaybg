@@ -2,6 +2,7 @@
 #include "background-image.h"
 #include "cairo_util.h"
 #include "log.h"
+#include "picture_cache.h"
 
 enum background_mode parse_background_mode(const char *mode) {
 	if (strcmp(mode, "stretch") == 0) {
@@ -22,7 +23,8 @@ enum background_mode parse_background_mode(const char *mode) {
 }
 
 cairo_surface_t *load_background_image(const char *path) {
-	cairo_surface_t *image;
+	cairo_surface_t *image = cache_get(path);
+	if (image) return image;
 #if HAVE_GDK_PIXBUF
 	GError *err = NULL;
 	GdkPixbuf *pixbuf = gdk_pixbuf_new_from_file(path, &err);
@@ -49,6 +51,7 @@ cairo_surface_t *load_background_image(const char *path) {
 				, cairo_status_to_string(cairo_surface_status(image)));
 		return NULL;
 	}
+	cache_put(path, image);
 	return image;
 }
 

@@ -11,6 +11,7 @@
 #include "background-image.h"
 #include "cairo_util.h"
 #include "log.h"
+#include "picture_cache.h"
 #include "pool-buffer.h"
 #include "wlr-layer-shell-unstable-v1-client-protocol.h"
 #include "viewporter-client-protocol.h"
@@ -537,6 +538,7 @@ static void parse_command_line(int argc, char **argv,
 }
 
 int main(int argc, char **argv) {
+	// cache_init();
 	swaybg_log_init(LOG_DEBUG);
 
 	struct swaybg_state state = {0};
